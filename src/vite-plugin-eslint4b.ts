@@ -47,7 +47,7 @@ export default function buildVitePluginESLint4B(): VitePlugin {
       result.resolve.alias.eslint = virtualESLintModuleId;
 
       if (!hasAlias("path")) {
-        result.resolve.alias.path = path.join(dirname, "./src/path-shim.mjs");
+        result.resolve.alias.path = path.join(dirname, "../shim/path-shim.mjs");
       }
 
       if (config.define?.["process.env.NODE_DEBUG"] === undefined) {
@@ -108,7 +108,7 @@ function bundle(entryPoint: string, externals: string[]) {
     bundle: true,
     external: externals,
     write: false,
-    inject: [path.join(dirname, "./src/process-shim.mjs")],
+    inject: [path.join(dirname, "../shim/process-shim.mjs")],
   });
 
   return `${result.outputFiles[0].text}`;

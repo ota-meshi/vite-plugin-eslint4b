@@ -2,12 +2,21 @@
   "name": "vite-plugin-eslint4b",
   "version": "0.0.0",
   "description": "Vite plugin for running ESLint on browser",
-  "main": "index.js",
+  "main": "lib/vite-plugin-eslint4b.js",
+  "module": "lib/vite-plugin-eslint4b.js",
   "type": "module",
   "files": [
     "lib",
     "shim"
   ],
+  "exports": {
+    ".": {
+      "import": "./lib/vite-plugin-eslint4b.js",
+      "require": "./lib/vite-plugin-eslint4b.cjs",
+      "types": "./lib/vite-plugin-eslint4b.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
   "scripts": {
     "build": "tsup",
     "clean": "rimraf .nyc_output lib coverage",
@@ -45,6 +54,7 @@
     "@changesets/changelog-github": "^0.4.6",
     "@changesets/cli": "^2.24.2",
     "@ota-meshi/eslint-plugin": "^0.13.1",
+    "@types/eslint": "^8.4.10",
     "@types/mocha": "^10.0.1",
     "@types/node": "^18.11.13",
     "@typescript-eslint/eslint-plugin": "^5.46.0",
