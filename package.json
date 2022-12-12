@@ -1,0 +1,83 @@
+{
+  "name": "vite-plugin-eslint4b",
+  "version": "0.0.0",
+  "description": "Vite plugin for running ESLint on browser",
+  "main": "lib/vite-plugin-eslint4b.js",
+  "module": "lib/vite-plugin-eslint4b.js",
+  "type": "module",
+  "files": [
+    "lib",
+    "shim"
+  ],
+  "exports": {
+    ".": {
+      "import": "./lib/vite-plugin-eslint4b.js",
+      "require": "./lib/vite-plugin-eslint4b.cjs",
+      "types": "./lib/vite-plugin-eslint4b.d.ts"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "tsup",
+    "clean": "rimraf .nyc_output lib coverage",
+    "cover": "nyc --reporter=lcov yarn test",
+    "debug": "yarn mocha \"tests/src/**/*.ts\" --reporter dot --timeout 60000",
+    "eslint-fix": "yarn lint --fix",
+    "lint": "eslint .",
+    "mocha": "yarn ts ./node_modules/mocha/bin/mocha.js",
+    "prebuild": "yarn clean",
+    "prerelease": "yarn clean && yarn build",
+    "preversion": "yarn lint && yarn test",
+    "release": "changeset publish",
+    "test": "yarn mocha \"tests/src/**/*.ts\" --reporter dot --timeout 60000",
+    "ts": "node -r esbuild-register"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ota-meshi/vite-plugin-eslint4b.git"
+  },
+  "keywords": [
+    "eslint",
+    "vite",
+    "browser"
+  ],
+  "author": "Yosuke Ota (https://github.com/ota-meshi)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ota-meshi/vite-plugin-eslint4b/issues"
+  },
+  "homepage": "https://github.com/ota-meshi/vite-plugin-eslint4b#readme",
+  "peerDependencies": {
+    "eslint": "^8.0.0"
+  },
+  "devDependencies": {
+    "@changesets/changelog-github": "^0.4.6",
+    "@changesets/cli": "^2.24.2",
+    "@ota-meshi/eslint-plugin": "^0.13.1",
+    "@types/eslint": "^8.4.10",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "^18.11.13",
+    "@typescript-eslint/eslint-plugin": "^5.46.0",
+    "@typescript-eslint/parser": "^5.46.0",
+    "esbuild-register": "^3.4.1",
+    "eslint": "^8.29.0",
+    "eslint-config-prettier": "^8.5.0",
+    "eslint-plugin-eslint-comments": "^3.2.0",
+    "eslint-plugin-json-schema-validator": "^4.0.3",
+    "eslint-plugin-jsonc": "^2.5.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-node-dependencies": "^0.10.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-regexp": "^1.11.0",
+    "eslint-plugin-yml": "^1.3.0",
+    "jsonc-eslint-parser": "^2.1.0",
+    "mocha": "^10.2.0",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4",
+    "vite": "^4.0.0"
+  },
+  "dependencies": {
+    "assert": "^2.0.0",
+    "esbuild": "^0.16.4"
+  }
+}

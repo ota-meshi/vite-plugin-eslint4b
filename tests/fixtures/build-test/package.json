@@ -1,0 +1,24 @@
+{
+  "name": "vite-plugin-eslint4b-buildtest",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "dependencies": {
+    "eslint": "^8.29.0",
+    "vite": "^4.0.0",
+    "vite-plugin-eslint4b": "file:../../.."
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "devDependencies": {
+    "@types/eslint": "^8.4.10"
+  }
+}
