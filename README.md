@@ -24,11 +24,11 @@ npm install --save-dev vite-plugin-eslint4b eslint
 ```js
 // vite.config.ts
 import type { UserConfig } from "vite";
-import buildVitePluginESLint4B from "vite-plugin-eslint4b";
+import eslint4b from "vite-plugin-eslint4b";
 
 const config: UserConfig = {
   plugins: [
-    buildVitePluginESLint4B(), // <-
+    eslint4b(), // <-
   ],
 };
 export default config;
