@@ -2,7 +2,14 @@
 
 Vite plugin for running ESLint on browser
 
-Note that it is not a plugin for running ESLint during the build process.
+> **Note**  
+> It is not a plugin for running ESLint during the build process.
+
+With this plugin the following imports will work on the browser:
+
+```js
+import { Linter } from 'eslint';
+```
 
 ## Usage
 
