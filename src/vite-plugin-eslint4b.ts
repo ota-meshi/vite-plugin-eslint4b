@@ -12,13 +12,10 @@ const virtualESLintModuleId = `${baseVirtualModuleId}_eslint`;
 const resolvedVirtualESLintModuleId = `\0${virtualESLintModuleId}`;
 const virtualLinterModuleId = `${baseVirtualModuleId}_eslint_linter`;
 const resolvedVirtualLinterModuleId = `\0${virtualLinterModuleId}`;
-// const virtualAssertModuleId = `${baseVirtualModuleId}_assert`;
-// const resolvedVirtualAssertModuleId = `\0${virtualAssertModuleId}`;
 
 const resolveIds: Record<string, string | undefined> = {
   [virtualESLintModuleId]: resolvedVirtualESLintModuleId,
   [virtualLinterModuleId]: resolvedVirtualLinterModuleId,
-  // [virtualAssertModuleId]: resolvedVirtualAssertModuleId
 };
 
 const virtualEslintCode = `import linter from '${virtualLinterModuleId}';
@@ -27,9 +24,9 @@ export { Linter };
 export default { Linter };
 `;
 
-export default function buildVitePluginESLint4B(): VitePlugin {
+export default function eslint4b(): VitePlugin {
   return {
-    name: "eslint4b",
+    name: "vite-plugin-eslint4b",
     config: (config) => {
       const result: UserConfig & {
         resolve: { alias: { [find: string]: string } };

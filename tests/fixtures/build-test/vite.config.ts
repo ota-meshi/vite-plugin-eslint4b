@@ -1,11 +1,11 @@
 /* eslint @typescript-eslint/ban-ts-comment: 0  -- for test */
 import type { UserConfig } from "vite";
 // @ts-ignore
-import buildVitePluginESLint4B from "vite-plugin-eslint4b";
+import eslint4b from "vite-plugin-eslint4b";
 
 const config: UserConfig = {
   plugins: [
-    buildVitePluginESLint4B(), // <-
+    eslint4b(), // <-
   ],
   build: {
     lib: {
