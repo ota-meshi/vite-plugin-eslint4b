@@ -73,7 +73,7 @@
     "jsonc-eslint-parser": "^2.1.0",
     "mocha": "^10.2.0",
     "tsup": "^6.5.0",
-    "typescript": "^4.9.4",
+    "typescript": "^5.0.0",
     "vite": "^4.0.0"
   },
   "dependencies": {
