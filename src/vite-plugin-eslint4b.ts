@@ -1,5 +1,6 @@
 import type { Plugin as VitePlugin, UserConfig } from "vite";
 import path from "path";
+import fs from "fs";
 import { createRequire } from "module";
 import esbuild from "esbuild";
 import { fileURLToPath } from "url";
@@ -12,16 +13,46 @@ const virtualESLintModuleId = `${baseVirtualModuleId}_eslint`;
 const resolvedVirtualESLintModuleId = `\0${virtualESLintModuleId}`;
 const virtualLinterModuleId = `${baseVirtualModuleId}_eslint_linter`;
 const resolvedVirtualLinterModuleId = `\0${virtualLinterModuleId}`;
+const virtualSourceCodeModuleId = `${baseVirtualModuleId}_eslint_source_code`;
+const resolvedVirtualSourceCodeModuleId = `\0${virtualSourceCodeModuleId}`;
+const virtualPackageJsonModuleId = `${virtualESLintModuleId}/package.json`;
+const resolvedVirtualPackageJsonModuleId = `\0${virtualPackageJsonModuleId.replace(
+  /\./gu,
+  "_"
+)}`;
+const virtualUseAtYourOwnRiskModuleId = `${virtualESLintModuleId}/use-at-your-own-risk`;
+const resolvedVirtualUseAtYourOwnRiskModuleId = `\0${virtualUseAtYourOwnRiskModuleId.replace(
+  /\./gu,
+  "_"
+)}`;
 
 const resolveIds: Record<string, string | undefined> = {
   [virtualESLintModuleId]: resolvedVirtualESLintModuleId,
   [virtualLinterModuleId]: resolvedVirtualLinterModuleId,
+  [virtualSourceCodeModuleId]: resolvedVirtualSourceCodeModuleId,
+  [virtualPackageJsonModuleId]: resolvedVirtualPackageJsonModuleId,
+  [virtualUseAtYourOwnRiskModuleId]: resolvedVirtualUseAtYourOwnRiskModuleId,
 };
 
 const virtualEslintCode = `import linter from '${virtualLinterModuleId}';
-const Linter = linter.Linter;
-export { Linter };
-export default { Linter };
+import sourceCode from '${virtualSourceCodeModuleId}';
+export const Linter = linter.Linter;
+export const SourceCode = sourceCode.SourceCode;
+
+// Avoid errors in extends class declarations.
+export const RuleTester = class FakeRuleTester {};
+export default {
+  Linter,
+  RuleTester,
+  SourceCode
+};
+`;
+
+const virtualUseAtYourOwnRisk = `import { Linter } from '${virtualESLintModuleId}';
+export const builtinRules = new Linter().getRules();
+export default {
+  builtinRules
+};
 `;
 
 export default function eslint4b(): VitePlugin {
@@ -74,6 +105,15 @@ export default function eslint4b(): VitePlugin {
       if (id === resolvedVirtualLinterModuleId) {
         return buildLinter();
       }
+      if (id === resolvedVirtualSourceCodeModuleId) {
+        return buildSourceCode();
+      }
+      if (id === resolvedVirtualPackageJsonModuleId) {
+        return buildPackageJSON();
+      }
+      if (id === resolvedVirtualUseAtYourOwnRiskModuleId) {
+        return virtualUseAtYourOwnRisk;
+      }
 
       return undefined;
     },
@@ -91,6 +131,35 @@ function buildLinter() {
     "../lib/linter/linter.js"
   );
   return build(linterPath, ["path", "assert", "util"]);
+}
+
+function buildSourceCode() {
+  const eslintPackageJsonPath = requireResolved("eslint/package.json");
+  const sourceCodePath = path.resolve(
+    eslintPackageJsonPath,
+    "../lib/source-code/index.js"
+  );
+  return build(sourceCodePath, []);
+}
+
+function buildPackageJSON() {
+  const isId = /^[\p{ID_Start}$_][\p{ID_Continue}$\u200c\u200d]*$/u;
+
+  const eslintPackageJsonPath = requireResolved("eslint/package.json");
+  const json = JSON.parse(fs.readFileSync(eslintPackageJsonPath, "utf8"));
+  const exports: string[] = [];
+  const defaultExports: string[] = [];
+  for (const [key, value] of Object.entries(json)) {
+    if (isId.test(key)) {
+      exports.push(`export const ${key} = ${JSON.stringify(value)};`);
+      defaultExports.push(key);
+    } else {
+      defaultExports.push(`${JSON.stringify(key)}:${JSON.stringify(value)}`);
+    }
+  }
+  return `${exports.join("\n")}
+export default { ${defaultExports.join(", ")} };
+`;
 }
 
 function build(input: string, externals: string[]) {
