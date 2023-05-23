@@ -1,8 +1,12 @@
 import { Linter } from "eslint";
+// @ts-expect-error -- for test
+import { name } from "eslint/package.json";
+import * as TSESLintUtils from "@typescript-eslint/utils";
+import * as TSESLintPlugin from "@typescript-eslint/eslint-plugin";
 
 const linter = new Linter();
 
-export function test(): Linter.LintMessage[] {
+export function lint(): Linter.LintMessage[] {
   return linter.verify("const a = 1", {
     parserOptions: {
       ecmaVersion: 2020,
@@ -10,3 +14,9 @@ export function test(): Linter.LintMessage[] {
     rules: { semi: "error" },
   });
 }
+
+export function getName(): string {
+  return name;
+}
+
+export { TSESLintUtils, TSESLintPlugin };

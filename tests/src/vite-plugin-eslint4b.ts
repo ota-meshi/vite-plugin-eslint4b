@@ -26,7 +26,7 @@ describe("Build with Vite", () => {
     cp.execSync(`npm run build`, { stdio: "inherit" });
 
     const mod = await dynamicImport(path.resolve(APP_ROOT, "./dist/index.js"));
-    const result: Linter.LintMessage[] = mod.test();
+    const result: Linter.LintMessage[] = mod.lint();
     console.log(result);
 
     assert.deepStrictEqual(
@@ -47,5 +47,8 @@ describe("Build with Vite", () => {
         },
       ]
     );
+
+    const name: string = mod.getName();
+    assert.strictEqual(name, "eslint");
   });
 });
