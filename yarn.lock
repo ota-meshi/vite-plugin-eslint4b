@@ -665,10 +665,10 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@ota-meshi/eslint-plugin@^0.14.0":
-  version "0.14.0"
-  resolved "https://registry.yarnpkg.com/@ota-meshi/eslint-plugin/-/eslint-plugin-0.14.0.tgz#cf037d1a546484d22dad754bd6f56abbbe156014"
-  integrity sha512-jFH/MpPVVHvSFmmYhVuLYLi8w5VoL0YtJvJE7iRMLkxdPLOK7Hc0ahup+PjR9FtyoC/ANuXPAYoUarWjFB/Q6Q==
+"@ota-meshi/eslint-plugin@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@ota-meshi/eslint-plugin/-/eslint-plugin-0.15.0.tgz#4849bd51f9e1673a69ea56d4efa2035ebbacebc3"
+  integrity sha512-SchO03JBrGYU7iB8nFroPgCiRldZd1MvwS2uUoTyOmxeSFkJfWtf9GiYcew/NBg+i9ZAo7CdDrj2F1yt/l2Esg==
   dependencies:
     semver "^7.3.4"
 
