@@ -139,7 +139,7 @@ function buildSourceCode() {
     eslintPackageJsonPath,
     "../lib/source-code/index.js"
   );
-  return build(sourceCodePath, []);
+  return build(sourceCodePath, ["path"]);
 }
 
 function buildPackageJSON() {
