@@ -12,7 +12,7 @@ const config: UserConfig = {
     alias: {
       globby: path.join(__dirname, "./src/shim/empty.ts"),
       fs: path.join(__dirname, "./src/shim/empty.ts"),
-      typescript: path.join(__dirname, "./src/shim/typescript.ts"),
+      typescript: path.join(__dirname, "./src/shim/typescript"),
     },
   },
   build: {

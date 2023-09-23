@@ -46,6 +46,7 @@ module.exports = {
       rules: {
         "no-console": "off",
         "require-jsdoc": "off",
+        "@typescript-eslint/no-duplicate-enum-values": "off",
       },
     },
   ],
