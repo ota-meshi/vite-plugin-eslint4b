@@ -45,7 +45,7 @@ describe("Build with Vite", () => {
           line: 1,
           column: 12,
         },
-      ]
+      ],
     );
 
     const name: string = mod.getName();

@@ -18,12 +18,12 @@ const resolvedVirtualSourceCodeModuleId = `\0${virtualSourceCodeModuleId}`;
 const virtualPackageJsonModuleId = `${virtualESLintModuleId}/package.json`;
 const resolvedVirtualPackageJsonModuleId = `\0${virtualPackageJsonModuleId.replace(
   /\./gu,
-  "_"
+  "_",
 )}`;
 const virtualUseAtYourOwnRiskModuleId = `${virtualESLintModuleId}/use-at-your-own-risk`;
 const resolvedVirtualUseAtYourOwnRiskModuleId = `\0${virtualUseAtYourOwnRiskModuleId.replace(
   /\./gu,
-  "_"
+  "_",
 )}`;
 
 const resolveIds: Record<string, string | undefined> = {
@@ -69,7 +69,7 @@ export default function eslint4b(): VitePlugin {
       if (hasAlias("eslint")) {
         // eslint-disable-next-line no-console -- OK
         console.warn(
-          "An eslint alias is specified but is ignored by vite-plugin-eslint4b."
+          "An eslint alias is specified but is ignored by vite-plugin-eslint4b.",
         );
       }
       result.resolve.alias.eslint = virtualESLintModuleId;
@@ -128,7 +128,7 @@ function buildLinter() {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
   const linterPath = path.resolve(
     eslintPackageJsonPath,
-    "../lib/linter/linter.js"
+    "../lib/linter/linter.js",
   );
   return build(linterPath, ["path", "assert", "util"]);
 }
@@ -137,7 +137,7 @@ function buildSourceCode() {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
   const sourceCodePath = path.resolve(
     eslintPackageJsonPath,
-    "../lib/source-code/index.js"
+    "../lib/source-code/index.js",
   );
   return build(sourceCodePath, ["path"]);
 }
@@ -184,7 +184,8 @@ function transform(code: string, injects: string[]) {
   return `
 ${injects
   .map(
-    (inject) => `import $inject_${inject.replace(/-/g, "_")}$ from '${inject}';`
+    (inject) =>
+      `import $inject_${inject.replace(/-/g, "_")}$ from '${inject}';`,
   )
   .join("\n")}
 const $_injects_$ = {${injects
