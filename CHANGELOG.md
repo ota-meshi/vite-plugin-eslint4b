@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.2.1
+
+### Patch Changes
+
+- [#22](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/22) [`793eda3`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/793eda38ff94d9ed2883c46f51a59bee4753e4bd) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: make `"path"` external from source-code.js
+
 ## 0.2.0
 
 ### Minor Changes
