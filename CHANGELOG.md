@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.2.3
+
+### Patch Changes
+
+- [#26](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/26) [`c6e5b46`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/c6e5b46989a7330642a95ff7e787e536788a37f8) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat: partial fs shim
+
 ## 0.2.2
 
 ### Patch Changes
