@@ -77,6 +77,9 @@ export default function eslint4b(): VitePlugin {
       if (!hasAlias("path")) {
         result.resolve.alias.path = path.join(dirname, "../shim/path-shim.mjs");
       }
+      if (!hasAlias("fs")) {
+        result.resolve.alias.fs = path.join(dirname, "../shim/fs-shim.mjs");
+      }
 
       if (config.define?.["process.env.NODE_DEBUG"] === undefined) {
         // Required for the 'utils' package to work in the browser.
