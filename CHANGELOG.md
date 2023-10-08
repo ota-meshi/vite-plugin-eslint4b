@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.2.2
+
+### Patch Changes
+
+- [#24](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/24) [`523c2b1`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/523c2b1e31ae43b84fefd300d24b8215aaaec5ff) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: path shim
+
 ## 0.2.1
 
 ### Patch Changes
