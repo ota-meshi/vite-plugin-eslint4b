@@ -79,6 +79,6 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
-    "esbuild": "^0.19.0"
+    "esbuild": "^0.20.0"
   }
 }
