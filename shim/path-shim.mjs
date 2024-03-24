@@ -11,8 +11,19 @@ export function extname(p) {
   return /\.[^.]+$/u.exec(p)[0];
 }
 
-export function relative(s) {
-  return s;
+export function relative(from, to) {
+  if (to.startsWith(from)) {
+    return adjust(to.slice(from.length));
+  }
+  return to;
+
+  function adjust(s) {
+    return s.startsWith("./") || s.startsWith("../")
+      ? s
+      : s.startsWith("/")
+        ? `.${s}`
+        : `./${s}`;
+  }
 }
 
 export function resolve(s) {
