@@ -18,11 +18,7 @@ export function relative(from, to) {
   return to;
 
   function adjust(s) {
-    return s.startsWith("./") || s.startsWith("../")
-      ? s
-      : s.startsWith("/")
-        ? `.${s}`
-        : `./${s}`;
+    return s.startsWith("./") ? s.slice(2) : s.startsWith("/") ? s.slice(1) : s;
   }
 }
 
