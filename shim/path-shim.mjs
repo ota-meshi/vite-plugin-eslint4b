@@ -21,8 +21,8 @@ export function relative(from, to) {
     return s.startsWith("./") || s.startsWith("../")
       ? s
       : s.startsWith("/")
-      ? `.${s}`
-      : `./${s}`;
+        ? `.${s}`
+        : `./${s}`;
   }
 }
 
