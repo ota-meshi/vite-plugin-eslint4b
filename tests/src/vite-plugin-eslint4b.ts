@@ -1,10 +1,19 @@
 import path from "path";
 import cp from "child_process";
 import assert from "assert";
+import semver from "semver";
 import type { Linter } from "eslint";
 
 const dynamicImport = new Function("file", "return import(file)");
 describe("Build with Vite", () => {
+  if (
+    !semver.satisfies(
+      process.version,
+      "^18.18.0 || ^20.9.0 || >=21.1.018.0.0 || ",
+    )
+  ) {
+    return;
+  }
   let originalCwd: string;
   cp.execSync("npm run build", {
     stdio: "inherit",
