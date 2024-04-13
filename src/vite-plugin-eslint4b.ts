@@ -178,7 +178,9 @@ function requireResolved(targetPath: string) {
     return createRequire(
       path.join(process.cwd(), "__placeholder__.js"),
     ).resolve(targetPath);
-  } catch {}
+  } catch {
+    // ignore
+  }
   return createRequire(filename).resolve(targetPath);
 }
 

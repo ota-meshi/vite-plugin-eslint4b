@@ -21,6 +21,7 @@ export function getName(): string {
 
 export { TSESLintUtils, TSESLintPlugin };
 
-export function getRules() {
+export function getRules(): Map<any, any> {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports, @typescript-eslint/no-var-requires -- Test
   return require("eslint/use-at-your-own-risk").builtinRules;
 }
