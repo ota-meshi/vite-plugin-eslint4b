@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.4.0
+
+### Minor Changes
+
+- [#47](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/47) [`a9bef96`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/a9bef9679616433628506b9f456f708f76544343) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: add support import('eslint/use-at-your-own-risk') for eslint v9
+
 ## 0.3.0
 
 ### Minor Changes
