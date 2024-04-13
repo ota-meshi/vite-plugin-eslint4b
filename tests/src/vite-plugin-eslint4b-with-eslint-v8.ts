@@ -4,7 +4,7 @@ import assert from "assert";
 import type { Linter } from "eslint";
 
 const dynamicImport = new Function("file", "return import(file)");
-describe("Build with Vite", () => {
+describe("Build with Vite with eslint v8", () => {
   let originalCwd: string;
   cp.execSync("npm run build", {
     stdio: "inherit",
@@ -17,10 +17,10 @@ describe("Build with Vite", () => {
     process.chdir(originalCwd);
   });
   it("basic", async () => {
-    const APP_ROOT = path.join(__dirname, "../fixtures/build-test");
+    const APP_ROOT = path.join(__dirname, "../fixtures/build-test-v8");
 
     process.chdir(APP_ROOT);
-    cp.execSync("npm i --no-package-lock -f", {
+    cp.execSync("npm i --no-package-lock", {
       stdio: "inherit",
     });
     cp.execSync(`npm run build`, { stdio: "inherit" });

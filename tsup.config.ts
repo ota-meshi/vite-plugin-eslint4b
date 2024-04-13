@@ -7,4 +7,5 @@ export default defineConfig({
   entryPoints: ["src/vite-plugin-eslint4b.ts"],
   format: ["cjs", "esm"],
   outDir: "lib",
+  external: ["vite"],
 });
