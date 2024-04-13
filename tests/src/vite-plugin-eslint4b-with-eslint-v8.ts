@@ -20,7 +20,7 @@ describe("Build with Vite with eslint v8", () => {
     const APP_ROOT = path.join(__dirname, "../fixtures/build-test-v8");
 
     process.chdir(APP_ROOT);
-    cp.execSync("npm i --no-package-lock", {
+    cp.execSync("npm i --no-package-lock -f", {
       stdio: "inherit",
     });
     cp.execSync(`npm run build`, { stdio: "inherit" });
