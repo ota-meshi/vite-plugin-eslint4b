@@ -7,12 +7,14 @@ import * as TSESLintPlugin from "@typescript-eslint/eslint-plugin";
 const linter = new Linter();
 
 export function lint(): Linter.LintMessage[] {
-  return linter.verify("const a = 1", [{
-    languageOptions: {
-      ecmaVersion: 2020,
+  return linter.verify("const a = 1", [
+    {
+      languageOptions: {
+        ecmaVersion: 2020,
+      },
+      rules: { semi: "error" },
     },
-    rules: { semi: "error" },
-  }]);
+  ]);
 }
 
 export function getName(): string {

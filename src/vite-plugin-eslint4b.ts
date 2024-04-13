@@ -281,11 +281,11 @@ function transform(
     })),
   ];
 
-  injectSources.forEach(s=>{
-    if(path.isAbsolute(s.module)){
-      s.module = './'+path.relative(process.cwd(), s.module)
+  injectSources.forEach((s) => {
+    if (path.isAbsolute(s.module)) {
+      s.module = `./${path.relative(process.cwd(), s.module)}`;
     }
-  })
+  });
 
   return `
 ${injectSources
