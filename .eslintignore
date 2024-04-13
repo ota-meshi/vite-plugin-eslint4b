@@ -5,3 +5,4 @@
 /lib
 node_modules
 tests/fixtures/build-test/dist
+tests/fixtures/build-test-v8/dist
