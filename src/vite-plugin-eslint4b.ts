@@ -64,6 +64,10 @@ export default {
 };
 `;
 
+function resolveAndNormalizePath(...paths: string[]) {
+  return path.normalize(path.resolve(...paths));
+}
+
 export default function eslint4b(): VitePlugin {
   return {
     name: "vite-plugin-eslint4b",
@@ -86,10 +90,10 @@ export default function eslint4b(): VitePlugin {
       result.resolve.alias.eslint = virtualESLintModuleId;
 
       if (!hasAlias("path")) {
-        result.resolve.alias.path = path.join(dirname, "../shim/path-shim.mjs");
+        result.resolve.alias.path = path.normalize(path.join(dirname, "../shim/path-shim.mjs"));
       }
       if (!hasAlias("fs")) {
-        result.resolve.alias.fs = path.join(dirname, "../shim/fs-shim.mjs");
+        result.resolve.alias.fs = path.normalize(path.join(dirname, "../shim/fs-shim.mjs"));
       }
 
       if (config.define?.["process.env.NODE_DEBUG"] === undefined) {
@@ -186,11 +190,11 @@ function requireResolved(targetPath: string) {
 
 function buildLinter() {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
-  const linterPath = path.resolve(
+  const linterPath = resolveAndNormalizePath(
     eslintPackageJsonPath,
     "../lib/linter/linter.js",
   );
-  const rulesPath = path.resolve(
+  const rulesPath = resolveAndNormalizePath(
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
@@ -202,7 +206,7 @@ function buildLinter() {
 
 function buildSourceCode() {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
-  const sourceCodePath = path.resolve(
+  const sourceCodePath = resolveAndNormalizePath(
     eslintPackageJsonPath,
     "../lib/source-code/index.js",
   );
@@ -211,7 +215,7 @@ function buildSourceCode() {
 
 function buildRules() {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
-  const rulesPath = path.resolve(
+  const rulesPath = resolveAndNormalizePath(
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
@@ -259,7 +263,7 @@ function bundle(
     bundle: true,
     external,
     write: false,
-    inject: [path.join(dirname, "../shim/process-shim.mjs")],
+    inject: [path.normalize(path.join(dirname, "../shim/process-shim.mjs"))],
   });
 
   return `${result.outputFiles[0].text}`;
@@ -285,7 +289,7 @@ function transform(
 
   injectSources.forEach((s) => {
     if (path.isAbsolute(s.module)) {
-      s.module = `./${path.relative(process.cwd(), s.module)}`;
+      s.module = path.normalize(`./${path.relative(process.cwd(), s.module)}`);
     }
   });
 
