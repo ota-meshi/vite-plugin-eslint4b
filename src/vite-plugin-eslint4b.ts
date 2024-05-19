@@ -296,7 +296,7 @@ ${injectSources
 const $_injects_$ = {${injectSources
     .map(({ id, module }) => `${JSON.stringify(module)}:${id}`)
     .join(",\n")}};
-function require(module, ...args) {
+function require(module) {
 	const mod = $_injects_$[module]
 	return mod.default || mod
 }
