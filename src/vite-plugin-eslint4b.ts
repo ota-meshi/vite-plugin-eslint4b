@@ -219,7 +219,7 @@ function buildRules() {
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
-  return build(rulesPath, ["path"]);
+  return build(rulesPath, ["path", "node:path"]);
 }
 
 function buildPackageJSON() {
