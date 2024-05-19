@@ -194,9 +194,13 @@ function buildLinter() {
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
-  const code = build(linterPath, ["path", "assert", "util"], {
-    [rulesPath]: virtualRulesModuleId,
-  });
+  const code = build(
+    linterPath,
+    ["path", "node:path", "assert", "node:assert", "util"],
+    {
+      [rulesPath]: virtualRulesModuleId,
+    },
+  );
   return code;
 }
 
