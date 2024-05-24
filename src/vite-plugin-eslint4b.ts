@@ -194,9 +194,13 @@ function buildLinter() {
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
-  const code = build(linterPath, ["path", "assert", "util"], {
-    [rulesPath]: virtualRulesModuleId,
-  });
+  const code = build(
+    linterPath,
+    ["path", "node:path", "assert", "node:assert", "util"],
+    {
+      [rulesPath]: virtualRulesModuleId,
+    },
+  );
   return code;
 }
 
@@ -206,7 +210,7 @@ function buildSourceCode() {
     eslintPackageJsonPath,
     "../lib/source-code/index.js",
   );
-  return build(sourceCodePath, ["path"]);
+  return build(sourceCodePath, ["path", "node:path", "assert", "node:assert"]);
 }
 
 function buildRules() {
@@ -215,7 +219,7 @@ function buildRules() {
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
-  return build(rulesPath, ["path"]);
+  return build(rulesPath, ["path", "node:path"]);
 }
 
 function buildPackageJSON() {
@@ -262,7 +266,7 @@ function bundle(
     inject: [path.join(dirname, "../shim/process-shim.mjs")],
   });
 
-  return `${result.outputFiles[0].text}`;
+  return result.outputFiles[0].text;
 }
 
 function transform(
@@ -273,7 +277,7 @@ function transform(
   const injectSources: { id: string; source: string; module: string }[] = [
     ...injects.map((inject) => ({
       id: `$inject_${inject.replace(/[^\w$]/giu, "_")}`,
-      source: inject,
+      source: inject.replace(/^node:/u, ""),
       module: inject,
     })),
     ...Object.entries(alias).map(([module, source]) => ({

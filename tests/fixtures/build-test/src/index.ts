@@ -4,7 +4,7 @@ import { name } from "eslint/package.json";
 import * as TSESLintUtils from "@typescript-eslint/utils";
 import * as TSESLintPlugin from "@typescript-eslint/eslint-plugin";
 
-const linter = new Linter();
+const linter = new Linter({ configType: "eslintrc" });
 
 export function lint(): Linter.LintMessage[] {
   return linter.verify("const a = 1", [
