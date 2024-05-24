@@ -1,5 +1,15 @@
 # vite-plugin-eslint4b
 
+## 0.4.1
+
+### Patch Changes
+
+- [#52](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/52) [`5a48e21`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/5a48e218b371d95282484ca64845d1dbc5f47264) Thanks [@baseballyama](https://github.com/baseballyama)! - chore: remove unused argument from require function
+
+- [#51](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/51) [`ee688ab`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/ee688ab625442911f0365942f089198dafa39be7) Thanks [@baseballyama](https://github.com/baseballyama)! - feat: support ESLint 9.3.0
+
+- [#53](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/53) [`82e968f`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/82e968fb5ca00d4a5eb1774a9c095d34d4aeddc8) Thanks [@baseballyama](https://github.com/baseballyama)! - fix: normalize module path to prevent unintentional passing mismatches
+
 ## 0.4.0
 
 ### Minor Changes
