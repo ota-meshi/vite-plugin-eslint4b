@@ -90,10 +90,14 @@ export default function eslint4b(): VitePlugin {
       result.resolve.alias.eslint = virtualESLintModuleId;
 
       if (!hasAlias("path")) {
-        result.resolve.alias.path = path.normalize(path.join(dirname, "../shim/path-shim.mjs"));
+        result.resolve.alias.path = path.normalize(
+          path.join(dirname, "../shim/path-shim.mjs"),
+        );
       }
       if (!hasAlias("fs")) {
-        result.resolve.alias.fs = path.normalize(path.join(dirname, "../shim/fs-shim.mjs"));
+        result.resolve.alias.fs = path.normalize(
+          path.join(dirname, "../shim/fs-shim.mjs"),
+        );
       }
 
       if (config.define?.["process.env.NODE_DEBUG"] === undefined) {
