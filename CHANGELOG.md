@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.4.2
+
+### Patch Changes
+
+- [#56](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/56) [`4c7930a`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/4c7930a2e7be9e7a6eeeb649ef990f5974560be0) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: to correctly normalize ESLint module paths
+
 ## 0.4.1
 
 ### Patch Changes
