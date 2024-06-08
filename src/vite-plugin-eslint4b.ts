@@ -297,7 +297,12 @@ function transform(
 
   injectSources.forEach((s) => {
     if (path.isAbsolute(s.module)) {
-      s.module = `./${path.normalize(path.relative(process.cwd(), s.module))}`;
+      const normalized = path.normalize(path.relative(process.cwd(), s.module));
+      s.module =
+        normalized.startsWith("./") || normalized.startsWith("../")
+          ? normalized
+          : // This must be a relative path to match the esbuild import path.
+            `./${normalized}`;
     }
   });
 
