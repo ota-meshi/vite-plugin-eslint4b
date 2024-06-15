@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.4.3
+
+### Patch Changes
+
+- [#58](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/58) [`9de33f8`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/9de33f879bfe226873e2d404863cba11f9d1167e) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: add support for eslint v9.5
+
 ## 0.4.2
 
 ### Patch Changes
