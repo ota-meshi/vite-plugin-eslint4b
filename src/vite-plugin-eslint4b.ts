@@ -214,10 +214,17 @@ function buildLinter() {
 
 function buildSourceCode() {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
-  const sourceCodePath = resolveAndNormalizePath(
+  let sourceCodePath = resolveAndNormalizePath(
     eslintPackageJsonPath,
     "../lib/source-code/index.js",
   );
+  if (!fs.existsSync(sourceCodePath)) {
+    // ESLint v9.5.0 and later
+    sourceCodePath = resolveAndNormalizePath(
+      eslintPackageJsonPath,
+      "../lib/languages/js/source-code/index.js",
+    );
+  }
   return build(sourceCodePath, ["path", "node:path", "assert", "node:assert"]);
 }
 
