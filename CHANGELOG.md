@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.4.5
+
+### Patch Changes
+
+- [#62](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/62) [`fcf33b5`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/fcf33b5a2994aec88f0014cacbf707f07a026d43) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: add path.default.parse
+
 ## 0.4.4
 
 ### Patch Changes
