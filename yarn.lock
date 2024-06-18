@@ -628,6 +628,11 @@
   resolved "https://registry.yarnpkg.com/@eslint/js/-/js-8.52.0.tgz#78fe5f117840f69dc4a353adf9b9cd926353378c"
   integrity sha512-mjZVbpaeMZludF2fsWLD0Z9gCref1Tk4i9+wddjRvpUNqqcndPkBD09N/Mapey0b3jaXbLm2kICwFv2E64QinA==
 
+"@eslint/js@^9.0.0":
+  version "9.5.0"
+  resolved "https://registry.yarnpkg.com/@eslint/js/-/js-9.5.0.tgz#0e9c24a670b8a5c86bff97b40be13d8d8f238045"
+  integrity sha512-A7+AOT2ICkodvtsWnxZP4Xxk3NbZ3VMHd8oihydLRGrJgqqdEz1qSeEgXYyT/Cu8h1TWWsQRejIx48mtjZ5y1w==
+
 "@humanwhocodes/config-array@^0.11.13":
   version "0.11.13"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.13.tgz#075dc9684f40a531d9b26b0822153c1e832ee297"
@@ -695,11 +700,12 @@
     "@nodelib/fs.scandir" "2.1.5"
     fastq "^1.6.0"
 
-"@ota-meshi/eslint-plugin@^0.15.1":
-  version "0.15.1"
-  resolved "https://registry.yarnpkg.com/@ota-meshi/eslint-plugin/-/eslint-plugin-0.15.1.tgz#426fc627f2d3ae9c8bb632ca0d67b091cd0626a2"
-  integrity sha512-Bu1I+9e67CbYTafiDd/GUHLrYWRRqRopqXD4RvEDW/a44nRr/u2ms8LI0tMAnmZ/0mZArkqurptWOwuhFd88Kg==
+"@ota-meshi/eslint-plugin@^0.17.0":
+  version "0.17.1"
+  resolved "https://registry.yarnpkg.com/@ota-meshi/eslint-plugin/-/eslint-plugin-0.17.1.tgz#12b9a9fc96a12ab8aa0066fd6b30fa30b61df175"
+  integrity sha512-QNYjG3LuDGTcytwlWGiPjB40f8Xg1ejXUOE9FuMdUAL+qFe1UBIfU2ymzkpL45gVCLHSer5OsHOj+JUwFJ7SZw==
   dependencies:
+    "@eslint/js" "^9.0.0"
     semver "^7.3.4"
 
 "@pkgr/core@^0.1.0":
