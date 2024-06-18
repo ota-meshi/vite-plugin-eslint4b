@@ -58,6 +58,7 @@ export const posix = {
   sep,
   isAbsolute,
   join,
+  parse,
   get posix() {
     return posix;
   },
