@@ -43,7 +43,7 @@ export function parse(s) {
     dir,
     base,
     ext,
-    name: basename(ext, ext),
+    name: basename(base, ext),
   };
 }
 
