@@ -8,7 +8,7 @@ export function basename(p, ext) {
 }
 
 export function extname(p) {
-  return /\.[^.]+$/u.exec(p)[0];
+  return /\.[^.]+$/u.exec(p)?.[0] || "";
 }
 
 export function relative(from, to) {
@@ -43,7 +43,7 @@ export function parse(s) {
     dir,
     base,
     ext,
-    name: basename(ext, ext),
+    name: basename(base, ext),
   };
 }
 
