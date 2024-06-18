@@ -34,6 +34,19 @@ export function join(...args) {
   return args.join("/");
 }
 
+export function parse(s) {
+  const dir = dirname(s);
+  const ext = extname(s);
+  const base = basename(s);
+  return {
+    root: "",
+    dir,
+    base,
+    ext,
+    name: basename(ext, ext),
+  };
+}
+
 export const sep = "/";
 
 export const posix = {
