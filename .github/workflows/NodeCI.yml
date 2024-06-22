@@ -22,7 +22,14 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [16.x, 18.x, 19.x]
+        node-version: [18, 20, 22]
+        eslint: [9]
+        include:
+          # On old Node.js version
+          - eslint: 8
+            node-version: 16
+          - eslint: 8
+            node-version: 19
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js ${{ matrix.node-version }}
@@ -31,5 +38,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
         run: yarn install --ignore-engines
+      - name: Install ESLint@${{ matrix.eslint }}
+        run: yarn add eslint@${{ matrix.eslint }} -D --ignore-engines
       - name: Test
         run: yarn test
