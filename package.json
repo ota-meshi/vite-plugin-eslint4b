@@ -82,7 +82,7 @@
   },
   "dependencies": {
     "assert": "^2.0.0",
-    "esbuild": "^0.21.0",
+    "esbuild": "^0.22.0",
     "magic-string": "^0.30.9"
   }
 }
