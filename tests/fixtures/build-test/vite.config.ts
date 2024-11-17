@@ -14,6 +14,7 @@ const config: UserConfig = {
   resolve: {
     alias: {
       globby: path.join(__dirname, "./src/shim/empty.ts"),
+      "fast-glob": path.join(__dirname, "./src/shim/empty.ts"),
       fs: path.join(__dirname, "./src/shim/empty.ts"),
       typescript: path.join(__dirname, "./src/shim/typescript"),
     },

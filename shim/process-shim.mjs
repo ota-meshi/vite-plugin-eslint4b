@@ -1,6 +1,6 @@
 export let process = {
   env: {},
-  cwd: () => "",
+  cwd: () => "/",
   stdout: {},
   platform: () => "",
 };
