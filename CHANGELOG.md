@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.5.0
+
+### Minor Changes
+
+- [#75](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/75) [`39a3a3f`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/39a3a3fa04411580cf0de27acfd600768f0011cc) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: cwd path to "/"
+
 ## 0.4.6
 
 ### Patch Changes
