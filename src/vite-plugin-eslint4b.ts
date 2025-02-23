@@ -204,7 +204,7 @@ function buildLinter() {
   );
   const code = build(
     linterPath,
-    ["path", "node:path", "assert", "node:assert", "util"],
+    ["path", "node:path", "assert", "node:assert", "util", "node:util"],
     {
       [rulesPath]: virtualRulesModuleId,
     },
