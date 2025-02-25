@@ -73,7 +73,7 @@
     "eslint-plugin-regexp": "^2.6.0",
     "eslint-plugin-yml": "^1.14.0",
     "jsonc-eslint-parser": "^2.4.0",
-    "mocha": "^10.2.0",
+    "mocha": "^11.0.0",
     "prettier": "^3.2.5",
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
