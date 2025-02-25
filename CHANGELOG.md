@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.5.1
+
+### Patch Changes
+
+- [#81](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/81) [`129b98b`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/129b98b86e995bf00ba57dbd12806bee9abd7443) Thanks [@baseballyama](https://github.com/baseballyama)! - fix: add `node:util` to resolve build errors
+
 ## 0.5.0
 
 ### Minor Changes
