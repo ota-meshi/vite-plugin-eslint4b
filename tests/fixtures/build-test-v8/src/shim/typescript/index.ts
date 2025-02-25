@@ -465,3 +465,5 @@ export enum Extension {
   Cts = ".cts",
   Dcts = ".d.cts",
 }
+
+export default { versionMajorMinor, TypeFlags, SyntaxKind, Extension };
