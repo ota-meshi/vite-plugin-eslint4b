@@ -1785,10 +1785,10 @@ eslint-plugin-n@^17.9.0:
     minimatch "^9.0.0"
     semver "^7.5.3"
 
-eslint-plugin-node-dependencies@^0.12.0:
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-node-dependencies/-/eslint-plugin-node-dependencies-0.12.0.tgz#b12fc67b2d55f88608d060238ba0d59ad049d3be"
-  integrity sha512-fZ63ZlBOJ0EdloXTY4uVjKe5wsA5EFGFatOSgKmFXpx80srjykNsUsibgTO9NL9Nt+Stl9/Hm5AyH6rQuuSUDw==
+eslint-plugin-node-dependencies@^0.13.0:
+  version "0.13.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-node-dependencies/-/eslint-plugin-node-dependencies-0.13.0.tgz#66ef7442e4b38acd35314682febb626072c4d541"
+  integrity sha512-RPL0Sd9f/VwR3SGxNB3bJIm+om9ce3JvDejeAOePeutyA5OogD3P2oR1eIlzC1ExsgqVAAaSralTiUaHz9qUfQ==
   dependencies:
     jsonc-eslint-parser "^2.0.2"
     npm-package-arg "^10.0.0"
