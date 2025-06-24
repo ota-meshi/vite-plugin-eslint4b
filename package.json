@@ -78,7 +78,7 @@
     "tsup": "^8.0.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
-    "vite": "^6.0.0"
+    "vite": "^7.0.0"
   },
   "dependencies": {
     "assert": "^2.0.0",
