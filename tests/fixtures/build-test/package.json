@@ -12,7 +12,7 @@
   "dependencies": {
     "@typescript-eslint/utils": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
-    "eslint": "^9.0.0",
+    "eslint": "^9.30.1",
     "vite": "^4.0.0",
     "vite-plugin-eslint4b": "file:../../.."
   },

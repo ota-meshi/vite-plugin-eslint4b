@@ -1,6 +1,8 @@
-export let process = {
-  env: {},
-  cwd: () => "/",
-  stdout: {},
-  platform: () => "",
-};
+export const env = {};
+export function cwd() {
+  return "/";
+}
+export const stdout = {};
+export function platform() {
+  return "";
+}
