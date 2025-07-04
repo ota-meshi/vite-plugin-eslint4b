@@ -21,9 +21,13 @@ const config: UserConfig = {
   },
   build: {
     lib: {
-      entry: "src/index.ts",
+      entry: {
+        index: "src/index.ts",
+        espree: "src/espree.ts",
+        eslint: "src/eslint.ts",
+        "eslint-utils": "src/eslint-utils.ts",
+      },
       formats: ["es"],
-      fileName: "index",
     },
   },
 };

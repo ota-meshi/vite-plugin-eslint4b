@@ -3,7 +3,8 @@ import { createFilter } from "vite";
 import path from "path";
 import fs from "fs";
 import { createRequire } from "module";
-import esbuild from "esbuild";
+import type { OutputChunk } from "rolldown";
+import { rolldown } from "rolldown";
 import { fileURLToPath } from "url";
 import MagicString from "magic-string";
 
@@ -20,6 +21,8 @@ const resolvedVirtualSourceCodeModuleId = `\0${virtualSourceCodeModuleId}`;
 const virtualRulesModuleId = `${baseVirtualModuleId}_eslint_rules`;
 const resolvedVirtualRulesModuleId = `\0${virtualRulesModuleId}`;
 const virtualPackageJsonModuleId = `${virtualESLintModuleId}/package.json`;
+const virtualESLintModuleTempIdPrefix = `${baseVirtualModuleId}_eslint_temp_`;
+const resolvedVirtualESLintModuleTempIdPrefix = `\0${virtualESLintModuleTempIdPrefix}`;
 const resolvedVirtualPackageJsonModuleId = `\0${virtualPackageJsonModuleId.replace(
   /\./gu,
   "_",
@@ -30,6 +33,15 @@ const resolvedVirtualUseAtYourOwnRiskModuleId = `\0${virtualUseAtYourOwnRiskModu
   "_",
 )}`;
 
+const virtualModuleIds = [
+  virtualESLintModuleId,
+  virtualLinterModuleId,
+  virtualSourceCodeModuleId,
+  virtualRulesModuleId,
+  virtualPackageJsonModuleId,
+  virtualUseAtYourOwnRiskModuleId,
+];
+
 const resolveIds: Record<string, string | undefined> = {
   [virtualESLintModuleId]: resolvedVirtualESLintModuleId,
   [virtualLinterModuleId]: resolvedVirtualLinterModuleId,
@@ -38,6 +50,12 @@ const resolveIds: Record<string, string | undefined> = {
   [virtualPackageJsonModuleId]: resolvedVirtualPackageJsonModuleId,
   [virtualUseAtYourOwnRiskModuleId]: resolvedVirtualUseAtYourOwnRiskModuleId,
 };
+type BundledESLint = {
+  resolveIds: Record<string, string | undefined>;
+  load: (id: string) => string | undefined;
+};
+let loadingBundledESLint: Promise<BundledESLint> | null = null;
+let bundledESLint: BundledESLint | null = null;
 
 const virtualEslintCode = `import linter from '${virtualLinterModuleId}';
 import sourceCode from '${virtualSourceCodeModuleId}';
@@ -89,21 +107,37 @@ export default function eslint4b(): VitePlugin {
         virtualUseAtYourOwnRiskModuleId;
       result.resolve.alias.eslint = virtualESLintModuleId;
 
-      if (!hasAlias("path")) {
-        result.resolve.alias.path = path.normalize(
-          path.join(dirname, "../shim/path-shim.mjs"),
-        );
+      for (const pathName of ["path", "node:path"]) {
+        if (!hasAlias(pathName)) {
+          result.resolve.alias[pathName] = path.normalize(
+            path.join(dirname, "../shim/path-shim.mjs"),
+          );
+        }
       }
-      if (!hasAlias("fs")) {
-        result.resolve.alias.fs = path.normalize(
-          path.join(dirname, "../shim/fs-shim.mjs"),
-        );
+      for (const pathName of ["fs", "node:fs"]) {
+        if (!hasAlias(pathName)) {
+          result.resolve.alias[pathName] = path.normalize(
+            path.join(dirname, "../shim/fs-shim.mjs"),
+          );
+        }
       }
 
       if (config.define?.["process.env.NODE_DEBUG"] === undefined) {
         // Required for the 'utils' package to work in the browser.
         result.define["process.env.NODE_DEBUG"] = false;
       }
+
+      result.optimizeDeps = result.optimizeDeps || {};
+      result.optimizeDeps.include = result.optimizeDeps.include || [];
+      result.optimizeDeps.include.push(
+        "@eslint-community/eslint-utils",
+        "@eslint-community/regexpp",
+        "eslint-scope",
+        "eslint-visitor-keys",
+        "espree",
+        "esquery",
+      );
+
       return result;
 
       function hasAlias(m: string) {
@@ -117,18 +151,19 @@ export default function eslint4b(): VitePlugin {
         return (configAlias as { [find: string]: string })[m] != null;
       }
     },
-    resolveId(source, _importer) {
-      return resolveIds[source];
+    async resolveId(source, _importer) {
+      if (virtualModuleIds.includes(source)) {
+        if (!loadingBundledESLint) loadingBundledESLint = buildESLint();
+        if (!bundledESLint) {
+          // eslint-disable-next-line require-atomic-updates -- ok
+          bundledESLint = await loadingBundledESLint;
+        }
+      }
+      return resolveIds[source] || bundledESLint?.resolveIds[source];
     },
     load(id, _options) {
       if (id === resolvedVirtualESLintModuleId) {
         return virtualEslintCode;
-      }
-      if (id === resolvedVirtualLinterModuleId) {
-        return buildLinter();
-      }
-      if (id === resolvedVirtualSourceCodeModuleId) {
-        return buildSourceCode();
       }
       if (id === resolvedVirtualPackageJsonModuleId) {
         return buildPackageJSON();
@@ -136,11 +171,7 @@ export default function eslint4b(): VitePlugin {
       if (id === resolvedVirtualUseAtYourOwnRiskModuleId) {
         return virtualUseAtYourOwnRisk;
       }
-      if (id === resolvedVirtualRulesModuleId) {
-        return buildRules();
-      }
-
-      return undefined;
+      return bundledESLint?.load(id) || undefined;
     },
   };
 }
@@ -192,7 +223,7 @@ function requireResolved(targetPath: string) {
   return createRequire(filename).resolve(targetPath);
 }
 
-function buildLinter() {
+async function buildESLint(): Promise<BundledESLint> {
   const eslintPackageJsonPath = requireResolved("eslint/package.json");
   const linterPath = resolveAndNormalizePath(
     eslintPackageJsonPath,
@@ -202,18 +233,6 @@ function buildLinter() {
     eslintPackageJsonPath,
     "../lib/rules/index.js",
   );
-  const code = build(
-    linterPath,
-    ["path", "node:path", "assert", "node:assert", "util", "node:util"],
-    {
-      [rulesPath]: virtualRulesModuleId,
-    },
-  );
-  return code;
-}
-
-function buildSourceCode() {
-  const eslintPackageJsonPath = requireResolved("eslint/package.json");
   let sourceCodePath = resolveAndNormalizePath(
     eslintPackageJsonPath,
     "../lib/source-code/index.js",
@@ -225,16 +244,74 @@ function buildSourceCode() {
       "../lib/languages/js/source-code/index.js",
     );
   }
-  return build(sourceCodePath, ["path", "node:path", "assert", "node:assert"]);
-}
 
-function buildRules() {
-  const eslintPackageJsonPath = requireResolved("eslint/package.json");
-  const rulesPath = resolveAndNormalizePath(
-    eslintPackageJsonPath,
-    "../lib/rules/index.js",
-  );
-  return build(rulesPath, ["path", "node:path"]);
+  const entryPoints = [linterPath, rulesPath, sourceCodePath];
+  const externals = [
+    "path",
+    "node:path",
+    "assert",
+    "node:assert",
+    "util",
+    "node:util",
+    "@eslint-community/eslint-utils",
+    "@eslint-community/regexpp",
+    "eslint-scope",
+    "eslint-visitor-keys",
+    "espree",
+    "esquery",
+  ];
+  const bundled = await bundle(entryPoints, externals);
+
+  const idMap = bundled.map((file, i): [string, string, string] => {
+    if (file.facadeModuleId === linterPath) {
+      return [
+        file.fileName,
+        virtualLinterModuleId,
+        resolvedVirtualLinterModuleId,
+      ];
+    }
+    if (file.facadeModuleId === rulesPath) {
+      return [
+        file.fileName,
+        virtualRulesModuleId,
+        resolvedVirtualRulesModuleId,
+      ];
+    }
+    if (file.facadeModuleId === sourceCodePath) {
+      return [
+        file.fileName,
+        virtualSourceCodeModuleId,
+        resolvedVirtualSourceCodeModuleId,
+      ];
+    }
+    return [
+      file.fileName,
+      `${virtualESLintModuleTempIdPrefix}${i}`,
+      `${resolvedVirtualESLintModuleTempIdPrefix}${i}`,
+    ];
+  });
+  const alias = Object.fromEntries(idMap.map(([id, vId]) => [id, vId]));
+
+  return {
+    resolveIds: Object.fromEntries(
+      idMap.map(([_, vId, resolvedVId]) => [vId, resolvedVId]),
+    ),
+    load(id) {
+      const ids = idMap.find(([, , resolvedVId]) => resolvedVId === id);
+      if (!ids) return undefined;
+      const entry = bundled.find((file) => file.fileName === ids[0]);
+      if (!entry) return undefined;
+
+      const transformed1 = transformAliases(entry.code, alias);
+      const transformed2 = transformExternalsToInjects(transformed1, externals);
+      // For debug
+      // const TEMP_DIR = path.join(dirname, "../.vite-plugin-eslint4b-temp");
+      // const tempFilePath = path.join(TEMP_DIR, entry.fileName);
+      // fs.mkdirSync(path.dirname(tempFilePath), { recursive: true });
+      // fs.writeFileSync(tempFilePath, transformed2, "utf8");
+      return transformed2;
+    },
+  };
 }
 
 function buildPackageJSON() {
@@ -257,50 +334,51 @@ export default { ${defaultExports.join(", ")} };
 `;
 }
 
-function build(
-  input: string,
-  externals: string[],
-  alias: Record<string, string> = {},
-) {
-  const bundledCode = bundle(input, externals, alias);
-  return transform(bundledCode, externals, alias);
-}
-
-function bundle(
-  entryPoint: string,
-  externals: string[],
-  alias: Record<string, string>,
-) {
-  const external = [...externals, ...Object.keys(alias)];
-  const result = esbuild.buildSync({
-    entryPoints: [entryPoint],
-    format: "esm",
-    bundle: true,
-    external,
-    write: false,
-    inject: [path.normalize(path.join(dirname, "../shim/process-shim.mjs"))],
+async function bundle(entryPoints: string[], externals: string[]) {
+  const build = await rolldown({
+    input: entryPoints,
+    external: externals,
+    inject: {
+      process: [
+        path.normalize(path.join(dirname, "../shim/process-shim.mjs")),
+        "*",
+      ],
+    },
   });
 
-  return result.outputFiles[0].text;
+  const result = await build.generate({
+    format: "esm",
+  });
+  return result.output as OutputChunk[];
 }
 
-function transform(
-  code: string,
-  injects: string[],
-  alias: Record<string, string>,
-) {
-  const injectSources: { id: string; source: string; module: string }[] = [
-    ...injects.map((inject) => ({
+function transformAliases(code: string, alias: Record<string, string>) {
+  let result = code;
+  for (const [from, to] of Object.entries(alias)) {
+    // Replace only the first occurrence of the alias.
+    const escaped = from.replace(/[$()*+.?[\\\]^{|}]/gu, "\\$&");
+    const re = new RegExp(
+      String.raw`(?<q>['"])\.[\.\/\\]*[\/\\]${escaped}\k<q>`,
+      "u",
+    );
+    const match = re.exec(result);
+    if (match) {
+      const quote = match.groups!.q;
+      const prefix = result.slice(0, match.index);
+      const suffix = result.slice(match.index + match[0].length);
+      result = `${prefix}${quote}${to}${quote}${suffix}`;
+    }
+  }
+  return result;
+}
+
+function transformExternalsToInjects(code: string, injects: string[]) {
+  const injectSources: { id: string; source: string; module: string }[] =
+    injects.map((inject) => ({
       id: `$inject_${inject.replace(/[^\w$]/giu, "_")}`,
       source: inject.replace(/^node:/u, ""),
       module: inject,
-    })),
-    ...Object.entries(alias).map(([module, source]) => ({
-      id: `$inject_${module.replace(/[^\w$]/giu, "_")}`,
-      source,
-      module,
-    })),
-  ];
+    }));
 
   injectSources.forEach((s) => {
     if (path.isAbsolute(s.module)) {
@@ -315,7 +393,7 @@ function transform(
 
   return `
 ${injectSources
-  .map(({ id, source }) => `import ${id} from '${source}';`)
+  .map(({ id, source }) => `import * as ${id} from '${source}';`)
   .join("\n")}
 const $_injects_$ = {${injectSources
     .map(({ id, module }) => `${JSON.stringify(module)}:${id}`)
