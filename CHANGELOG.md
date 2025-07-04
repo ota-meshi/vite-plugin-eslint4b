@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.6.0
+
+### Minor Changes
+
+- [#87](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/87) [`4a72c38`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/4a72c38679bfc1476f60999adad2d902d1a7d84e) Thanks [@ota-meshi](https://github.com/ota-meshi)! - BREAKING CHNAGE: use rolldown
+
 ## 0.5.1
 
 ### Patch Changes
