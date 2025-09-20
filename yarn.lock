@@ -1445,10 +1445,10 @@ eslint-plugin-es-x@^7.8.0:
     "@eslint-community/regexpp" "^4.11.0"
     eslint-compat-utils "^0.5.1"
 
-eslint-plugin-jsdoc@^59.0.0:
-  version "59.0.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-59.0.1.tgz#819131090cd625bb23038c2a80aa84fe340f6f01"
-  integrity sha512-hyIdUFpjJwFJtyZ5FliUsQuqjsVwVj/3uBexww8TXN4T7f8R3xvG2fFCpe7dQV0kGwoVo9uTtYeK9XvF458qbg==
+eslint-plugin-jsdoc@^60.0.0:
+  version "60.0.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-jsdoc/-/eslint-plugin-jsdoc-60.0.0.tgz#8959c3fa25fecbbd56450e8a686c6315f4c6b2d2"
+  integrity sha512-K8D5fJOkeunX+exeOkOUx+P7ZCixdRBsM3QQ+M2aazSO+64pnjH6z03wWYGQ3XTjUxpI2QXOTSQ9E75bDKi5AA==
   dependencies:
     "@es-joy/jsdoccomment" "~0.58.0"
     are-docs-informative "^0.0.2"
