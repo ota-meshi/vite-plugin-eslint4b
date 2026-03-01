@@ -18,11 +18,11 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v4
       - name: Install deps
-        run: yarn install
+        run: npm install
       - name: Install prettier@latest
-        run: yarn add -D prettier@latest
+        run: npm install --save-dev prettier@latest
       - name: Format
-        run: yarn eslint-fix
+        run: npm run eslint-fix
       - name: Commit
         run: |
           git config --local user.email "github-actions[bot]@users.noreply.github.com"
