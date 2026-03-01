@@ -5,7 +5,7 @@ import semver from "semver";
 import type { Linter } from "eslint";
 
 const dynamicImport = new Function("file", "return import(file)");
-describe("Build with Vite", () => {
+describe("Build with Vite with eslint v9", () => {
   if (!semver.satisfies(process.version, "^18.18.0 || ^20.9.0 || >=21.1.0")) {
     return;
   }
@@ -21,7 +21,7 @@ describe("Build with Vite", () => {
     process.chdir(originalCwd);
   });
   it("basic", async () => {
-    const APP_ROOT = path.join(__dirname, "../fixtures/build-test");
+    const APP_ROOT = path.join(__dirname, "../fixtures/build-test-v9");
 
     process.chdir(APP_ROOT);
     cp.execSync("npm i --no-package-lock -f", {
