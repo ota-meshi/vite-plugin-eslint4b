@@ -1,5 +1,12 @@
 # vite-plugin-eslint4b
 
+## 0.7.0
+
+### Minor Changes
+
+- [#119
+](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/119) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat: add support for ESLint 10
+
 ## 0.6.0
 
 ### Minor Changes
