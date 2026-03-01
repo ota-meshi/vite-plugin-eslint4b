@@ -64,10 +64,14 @@ export const SourceCode = sourceCode.SourceCode;
 
 // Avoid errors in extends class declarations.
 export const RuleTester = class FakeRuleTester {};
+export const ESLint = class FakeESLint {
+  static version = Linter.version;
+};
 export default {
   Linter,
   RuleTester,
-  SourceCode
+  SourceCode,
+  ESLint
 };
 `;
 
