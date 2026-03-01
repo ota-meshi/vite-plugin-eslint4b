@@ -2,8 +2,8 @@
   "name": "vite-plugin-eslint4b",
   "version": "0.7.0",
   "description": "Vite plugin for running ESLint on browser",
-  "main": "lib/vite-plugin-eslint4b.js",
-  "module": "lib/vite-plugin-eslint4b.js",
+  "main": "lib/vite-plugin-eslint4b.mjs",
+  "module": "lib/vite-plugin-eslint4b.mjs",
   "type": "module",
   "files": [
     "lib",
@@ -11,21 +11,20 @@
   ],
   "exports": {
     ".": {
-      "import": "./lib/vite-plugin-eslint4b.js",
+      "import": "./lib/vite-plugin-eslint4b.mjs",
       "require": "./lib/vite-plugin-eslint4b.cjs",
-      "types": "./lib/vite-plugin-eslint4b.d.ts"
+      "default": "./lib/vite-plugin-eslint4b.mjs"
     },
     "./package.json": "./package.json"
   },
   "scripts": {
-    "build": "tsup",
+    "build": "tsdown",
     "clean": "npx -y rimraf .nyc_output lib coverage",
     "cover": "nyc --reporter=lcov npm run test",
     "debug": "node -r esbuild-register ./node_modules/mocha/bin/mocha.js \"tests/src/**/*.ts\" --reporter dot --timeout 60000",
     "eslint-fix": "npm run lint -- --fix",
-    "lint": "eslint .",
+    "lint": "eslint . && tsc --noEmit",
     "mocha": "node -r esbuild-register ./node_modules/mocha/bin/mocha.js",
-    "prebuild": "npm run clean",
     "prerelease": "npm run clean && npm run build",
     "preversion": "npm run lint && npm run test",
     "release": "changeset publish",
@@ -75,7 +74,7 @@
     "jsonc-eslint-parser": "^2.4.0",
     "mocha": "^11.0.0",
     "prettier": "^3.2.5",
-    "tsup": "^8.0.0",
+    "tsdown": "^0.21.0-beta.2",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
     "vite": "^7.0.0"
