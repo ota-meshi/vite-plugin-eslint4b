@@ -4,7 +4,8 @@
 
 ### Minor Changes
 
-- [`29017f8`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/29017f8eec3f353b2245742c66787297ef93d192) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat: add support for ESLint 10
+- [#119
+](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/119) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat: add support for ESLint 10
 
 ## 0.6.0
 
