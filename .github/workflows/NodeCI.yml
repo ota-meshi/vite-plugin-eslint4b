@@ -27,14 +27,12 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [18, 20, 22]
+        node-version: [20, 22, 24]
         eslint: [9, 10]
         include:
-          # On old Node.js version
+          # On old version
           - eslint: 8
-            node-version: 16
-          - eslint: 8
-            node-version: 19
+            node-version: 20
     steps:
       - uses: actions/checkout@v6
       - name: Use Node.js ${{ matrix.node-version }}
