@@ -342,11 +342,13 @@ async function bundle(entryPoints: string[], externals: string[]) {
   const build = await rolldown({
     input: entryPoints,
     external: externals,
-    inject: {
-      process: [
-        path.normalize(path.join(dirname, "../shim/process-shim.mjs")),
-        "*",
-      ],
+    transform: {
+      inject: {
+        process: [
+          path.normalize(path.join(dirname, "../shim/process-shim.mjs")),
+          "*",
+        ],
+      },
     },
   });
 
