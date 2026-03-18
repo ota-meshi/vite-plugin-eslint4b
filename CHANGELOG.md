@@ -1,11 +1,21 @@
 # vite-plugin-eslint4b
 
+## 0.8.0
+
+### Minor Changes
+
+- [#129](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/129) [`2916493`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/29164933b01bc1d68afea94aec372a4505b6b3cf) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat!: drop support for Node.js 19 or older
+
+### Patch Changes
+
+- [#127](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/127) [`5ce86d6`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/5ce86d6ed042dcdc279b58830842cd074928f1c4) Thanks [@JasonWeinzierl](https://github.com/JasonWeinzierl)! - Fix process not getting shimmed
+
 ## 0.7.0
 
 ### Minor Changes
 
 - [#119
-](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/119) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat: add support for ESLint 10
+  ](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/119) Thanks [@ota-meshi](https://github.com/ota-meshi)! - feat: add support for ESLint 10
 
 ## 0.6.0
 
