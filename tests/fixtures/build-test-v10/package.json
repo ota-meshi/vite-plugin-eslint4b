@@ -12,15 +12,12 @@
   "dependencies": {
     "@typescript-eslint/utils": "latest",
     "@typescript-eslint/eslint-plugin": "latest",
-    "eslint": "^9.30.1",
+    "eslint": "^10.0.0",
     "vite": "^4.0.0",
     "vite-plugin-eslint4b": "file:../../.."
   },
   "scripts": {
     "dev": "vite",
     "build": "vite build"
-  },
-  "devDependencies": {
-    "@types/eslint": "^8.4.10"
   }
 }
