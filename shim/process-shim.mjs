@@ -3,9 +3,7 @@ export function cwd() {
   return "/";
 }
 export const stdout = {};
-export function platform() {
-  return "";
-}
+export const platform = "browser";
 export function hrtime() {
   return [0, 0];
 }
