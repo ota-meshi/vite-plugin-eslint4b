@@ -34,6 +34,12 @@ export function join(...args) {
   return args.join("/");
 }
 
+export function normalize(p) {
+  return typeof p === "string"
+    ? p.replace(/\/+/gu, "/").replace(/\/\.\//gu, "/")
+    : p;
+}
+
 export function parse(s) {
   const dir = dirname(s);
   const ext = extname(s);
@@ -59,6 +65,7 @@ export const posix = {
   isAbsolute,
   join,
   parse,
+  normalize,
   get posix() {
     return posix;
   },
