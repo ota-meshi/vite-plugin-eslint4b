@@ -1,5 +1,11 @@
 # vite-plugin-eslint4b
 
+## 0.8.1
+
+### Patch Changes
+
+- [#136](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/136) [`49715c6`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/49715c6b1f46fe40ff7688284048cb56ceb02377) Thanks [@ota-meshi](https://github.com/ota-meshi)! - fix: add normalize function to path shim
+
 ## 0.8.0
 
 ### Minor Changes
