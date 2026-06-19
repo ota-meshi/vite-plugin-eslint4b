@@ -76,7 +76,7 @@
     "jsonc-eslint-parser": "^3.0.0",
     "mocha": "^11.0.0",
     "prettier": "^3.2.5",
-    "tsdown": "^0.21.0-beta.2",
+    "tsdown": "^0.22.0",
     "typescript": "^5.0.0",
     "typescript-eslint": "^8.0.0",
     "vite": "^7.0.0"
