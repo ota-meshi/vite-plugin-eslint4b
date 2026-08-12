@@ -11,6 +11,8 @@ export default [
       "**/node_modules/",
       "tests/fixtures/build-test/dist/",
       "tests/fixtures/build-test-v8/dist/",
+      "tests/fixtures/build-test-v9/dist/",
+      "tests/fixtures/build-test-v10/dist/",
       ".vite-plugin-eslint4b-temp/",
     ],
   },
