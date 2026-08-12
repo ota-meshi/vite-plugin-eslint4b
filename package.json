@@ -88,7 +88,7 @@
   "overrides": {
     "rolldown-plugin-dts": {
       "@babel/types": {
-        "@babel/helper-string-parser": "8.0.0-rc.3"
+        "@babel/helper-string-parser": "8.0.0"
       },
       "ast-kit": "3.0.0-beta.1"
     }
