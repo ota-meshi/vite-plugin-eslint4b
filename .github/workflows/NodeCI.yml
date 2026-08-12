@@ -40,8 +40,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
       - name: Install Packages
-        run: npm install -f
+        run: npm install
       - name: Install ESLint@${{ matrix.eslint }}
-        run: npm install -f eslint@${{ matrix.eslint }} --save-dev
+        run: npm install eslint@${{ matrix.eslint }} --save-dev
       - name: Test
         run: npm run test
