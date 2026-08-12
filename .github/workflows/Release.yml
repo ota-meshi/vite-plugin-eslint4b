@@ -37,8 +37,8 @@ jobs:
         uses: changesets/action@v2.0.0
         with:
           # This expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
-          commit: "chore: release vite-plugin-eslint4b"
-          title: "chore: release vite-plugin-eslint4b"
+          publish-script: npm run release
+          commit-message: "chore: release vite-plugin-eslint4b"
+          pr-title: "chore: release vite-plugin-eslint4b"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
