@@ -1,5 +1,17 @@
 # vite-plugin-eslint4b
 
+## 0.9.0
+
+### Minor Changes
+
+- [#147](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/147) [`708fe60`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/708fe60cb3c5976952806d79523fadddc6579643) Thanks [@ota-meshi](https://github.com/ota-meshi)! - Avoid dependency optimizer failures when dependencies import or require ESLint.
+
+### Patch Changes
+
+- [#148](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/148) [`9b4365d`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/9b4365d930779270ca6f3b85d3c7f3e6453d5e91) Thanks [@ota-meshi](https://github.com/ota-meshi)! - Upgrade `magic-string` and `rolldown` to their latest stable releases.
+
+- [#146](https://github.com/ota-meshi/vite-plugin-eslint4b/pull/146) [`b21e44e`](https://github.com/ota-meshi/vite-plugin-eslint4b/commit/b21e44e35362369e77614300f7fb3ebedfdac634) Thanks [@ota-meshi](https://github.com/ota-meshi)! - Respect regular-expression aliases for Node.js built-ins.
+
 ## 0.8.1
 
 ### Patch Changes
