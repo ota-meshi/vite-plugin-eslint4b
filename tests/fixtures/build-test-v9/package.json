@@ -19,8 +19,5 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build"
-  },
-  "devDependencies": {
-    "@types/eslint": "^8.4.10"
   }
 }

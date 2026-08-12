@@ -1,5 +1,4 @@
 import { Linter } from "eslint";
-// @ts-expect-error -- for test
 import { name } from "eslint/package.json";
 import * as TSESLintUtils from "@typescript-eslint/utils";
 import * as TSESLintPlugin from "@typescript-eslint/eslint-plugin";

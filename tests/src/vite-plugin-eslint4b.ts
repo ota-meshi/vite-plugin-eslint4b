@@ -1,5 +1,7 @@
 import assert from "assert";
-import eslint4b from "../../src/vite-plugin-eslint4b";
+import eslint4b, {
+  requireESLintUseAtYourOwnRisk4b,
+} from "../../src/vite-plugin-eslint4b";
 
 describe("vite-plugin-eslint4b config", () => {
   it("excludes ESLint entry points from dependency optimization", async () => {
@@ -44,5 +46,29 @@ describe("vite-plugin-eslint4b config", () => {
     for (const moduleName of ["path", "node:path", "fs", "node:fs"]) {
       assert.ok(!(moduleName in result.resolve.alias));
     }
+  });
+
+  it("rewrites CommonJS access to ESLint builtin rules", async () => {
+    const transformHook = requireESLintUseAtYourOwnRisk4b().transform;
+    if (typeof transformHook !== "function") {
+      throw new TypeError("Expected the transform hook to be a function.");
+    }
+
+    const result = await transformHook.call(
+      {} as never,
+      `const { builtinRules } = require("eslint/use-at-your-own-risk");`,
+      "/entry.js",
+    );
+
+    assert.ok(result && typeof result !== "string");
+    if (typeof result.code !== "string") {
+      throw new TypeError("Expected transformed code.");
+    }
+    assert.match(result.code, /builtinRules as ___builtinRules___/u);
+    const map = result.map;
+    if (typeof map !== "string") {
+      throw new TypeError("Expected a JSON source map string.");
+    }
+    assert.doesNotThrow(() => JSON.parse(map));
   });
 });

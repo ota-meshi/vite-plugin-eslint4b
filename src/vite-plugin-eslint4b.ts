@@ -215,7 +215,7 @@ export function requireESLintUseAtYourOwnRisk4b(options?: {
         ms.replaceAll(re, "{ builtinRules: ___builtinRules___ }");
         return {
           code: ms.toString(),
-          map: ms.generateMap(),
+          map: ms.generateMap().toString(),
         };
       }
       return undefined;
