@@ -132,6 +132,8 @@ export default function eslint4b(): VitePlugin {
       }
 
       result.optimizeDeps = result.optimizeDeps || {};
+      result.optimizeDeps.exclude = result.optimizeDeps.exclude || [];
+      result.optimizeDeps.exclude.push("eslint", "eslint/use-at-your-own-risk");
       result.optimizeDeps.include = result.optimizeDeps.include || [];
       result.optimizeDeps.include.push(
         "@eslint-community/eslint-utils",
