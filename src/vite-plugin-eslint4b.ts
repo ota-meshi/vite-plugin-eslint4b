@@ -150,7 +150,12 @@ export default function eslint4b(): VitePlugin {
           return false;
         }
         if (Array.isArray(configAlias)) {
-          return configAlias.some((alias) => alias.find === m);
+          return configAlias.some((alias) => {
+            if (typeof alias.find === "string") {
+              return alias.find === m;
+            }
+            return new RegExp(alias.find.source, alias.find.flags).test(m);
+          });
         }
         return (configAlias as { [find: string]: string })[m] != null;
       }
