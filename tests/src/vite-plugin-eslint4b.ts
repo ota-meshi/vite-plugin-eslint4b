@@ -4,7 +4,9 @@ import eslint4b from "../../src/vite-plugin-eslint4b";
 describe("vite-plugin-eslint4b config", () => {
   it("respects regular expression aliases for path and fs", async () => {
     const configHook = eslint4b().config;
-    assert.strictEqual(typeof configHook, "function");
+    if (typeof configHook !== "function") {
+      throw new TypeError("Expected the config hook to be a function.");
+    }
 
     const result = await configHook.call(
       {} as never,
